@@ -101,51 +101,43 @@ Stroke.Color = Color3.new(1, 1, 1)
 
 -- Scripts:
 
-local function LBJBQ_fake_script() -- main.LocalScript 
-	local script = Instance.new('LocalScript', main)
+local frame = main
+local UserInputService = game:GetService("UserInputService")
 
-	-- Put this LocalScript inside the Frame you want draggable
+local dragging = false
+local dragStart, startPos
 
-	local frame = script.Parent
-	local UserInputService = game:GetService("UserInputService")
-
-	local dragging = false
-	local dragStart, startPos
-
-	local function update(input)
-		local delta = input.Position - dragStart
-		frame.Position = UDim2.new(
-			startPos.X.Scale,
-			startPos.X.Offset + delta.X,
-			startPos.Y.Scale,
-			startPos.Y.Offset + delta.Y
-		)
-	end
-
-	frame.InputBegan:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			dragging = true
-			dragStart = input.Position
-			startPos = frame.Position
-
-			input.Changed:Connect(function()
-				if input.UserInputState == Enum.UserInputState.End then
-					dragging = false
-				end
-			end)
-		end
-	end)
-
-	frame.InputChanged:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseMovement then
-			if dragging then
-				update(input)
-			end
-		end
-	end)
-
+local function update(input)
+	local delta = input.Position - dragStart
+	frame.Position = UDim2.new(
+		startPos.X.Scale,
+		startPos.X.Offset + delta.X,
+		startPos.Y.Scale,
+		startPos.Y.Offset + delta.Y
+	)
 end
-coroutine.wrap(LBJBQ_fake_script)()
+
+frame.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 then
+		dragging = true
+		dragStart = input.Position
+		startPos = frame.Position
+
+		input.Changed:Connect(function()
+			if input.UserInputState == Enum.UserInputState.End then
+				dragging = false
+			end
+		end)
+	end
+end)
+
+frame.InputChanged:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseMovement then
+		if dragging then
+			update(input)
+		end
+	end
+end)
 
 
 local OutfitFolder = Instance.new("Folder")
