@@ -175,7 +175,7 @@ local function ToDictionary(humanoidDescription)
 	----------------------------------------------------------------------
 	-- 1. Human Description Properties
 	----------------------------------------------------------------------
-	for category, props in pairs(GetHumanDescProperties(true)) do
+	for category, props in pairs(GetHumanDescProperties(false, true)) do
 		for _, propName in pairs(props) do
 			if category == "BodyColors" then
 				local color = humanoidDescription[propName]
@@ -302,3 +302,5 @@ Export.Activated:Connect(function()
 	task.wait(1)
 	saveinstance(OutfitFolder)
 end)
+
+print("YURRR)
