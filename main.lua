@@ -12,6 +12,7 @@ local Stroke = Instance.new("UIStroke")
 
 
 ScreenGui.Parent = game.Players.LocalPlayer.PlayerGui
+ScreenGui.ResetOnSpawn = false
 
 main.Name = "main"
 main.Parent = ScreenGui
