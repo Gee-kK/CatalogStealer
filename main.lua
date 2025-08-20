@@ -169,7 +169,7 @@ local function GetHumanDescProperties(arg1, arg2) -- Line 130
 	}
 end
 
-local function ToDictionary(_, humanoidDescription)
+local function ToDictionary(humanoidDescription)
 	local result = {}
 
 	----------------------------------------------------------------------
